@@ -1,3 +1,4 @@
+
 Calvin D
 Kilian Georget
 
@@ -105,6 +106,46 @@ SELECT e.raisonsociale, count(*) as total FROM demande d INNER JOIN entreprise e
 ```
 SELECT * FROM demande WHERE notournee IS NULL;
 ```
+
+### Utilitaires
+
+##### (Procédure) Affichez les informations des demandes qui ne sont pas encore inscrites dans une tournée.
+```
+CALL demandeNonInscrit();
+```
+##### (Fonction) retrouver la quantité totale collectée pour un type de déchet sur une période donnée au niveau d’un site.
+```
+SELECT totalcollecter(?, ?, ?, ?) FROM dual;
+```
+Avec ?, ?, ?, ? : nosite, notype, annee, mois. Exemple totalcollecter(1, 1, 2018, 9);
+##### (Fonction) retrouver la quantité totale collectée pour un type de déchet sur une période donnée au niveau national.
+```
+SELECT totalcollecterNational(?, ?, ?) FROM dual;
+```
+Avec ?, ?, ? : notype, annee, mois. Exemple totalcollecterNational(1, 2018, 9);
+
+##### (Trigger) contrôle la cohérence d'un dépôt avant insertion en base. La commande ci dessous permet de tester le rejet
+```
+INSERT INTO detailDepot (quantitedeposee, notournee, notypedechet, nocentre) VALUES (999, 1, 1, 1);
+```
+### Création d'utilisateurs
+
+##### (Procedure) Permet de créer un utilisateur
+```
+CALL createuser(nom, prenom, fonction);
+```
+Avec fonction valant : 
+- D pour directeur
+- R pour responsable
+- A pour agent
+- E pour employé
+
+##### Profils utilisateurs : Directeur, Responsable, Agent, Employé
+
+- Le nombre de tentative de connexion avant blocage du compte est de 3.
+- Un mot de passe ne peut exister plus de 60 jours
+- Un agent et un employé peut avoir 1 session d'ouverte, tandis que les directeurs et responsables peuvent en avoir 2 d'ouvertes en simultané.
+
 
 ### Quelques commandes 
 
