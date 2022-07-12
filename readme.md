@@ -32,6 +32,7 @@ sqlldr userid=rfrance/rfrance   control=c:\load\lille\detaildemande.ctl   log=c:
 sqlldr userid=rfrance/rfrance   control=c:\load\paris\detaildepot.ctl   log=c:\load\log\detaildepotParis.log
 sqlldr userid=rfrance/rfrance   control=c:\load\lille\detaildepot.ctl   log=c:\load\log\detaildepotLille.log
 ```
+Les fichiers de logs sont disponibles dans c:\load\log\
 
 ### Sauvegarder la base
 
