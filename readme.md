@@ -81,18 +81,22 @@ alter database open resetlogs;
 ```
 SELECT * FROM DEMANDE WHERE DATEDEMANDE > ?;
 ```
+(Exemple avec ? valant '03/11'2018')
 ##### Pour une demande donnée, afficher la raison sociale de l’entreprise, la tournée correspondante et la quantité à récupérer pour chaque type de déchet. (Params : demande)
 ```
 SELECT entreprise.RaisonSociale, tournee.NoTournee, detaildemande.QuantiteEnlevee FROM demande LEFT OUTER JOIN detaildemande ON demande.Nodemande = detaildemande.Nodemande LEFT OUTER JOIN entreprise ON demande.Siret = entreprise.Siret LEFT OUTER JOIN tournee ON demande.NoTournee = tournee.NoTournee WHERE demande.NoDemande = ?; 
 ```
+(Exemple avec ? valant 18)
 ##### Afficher la quantité totale récupérée par type de déchet pour un mois/année donné. (Params : année, mois)
 ```
 SELECT T.NomTypeDechet,  SUM(dd.quantiteenlevee) FROM TYPEDECHET T, DETAILDEMANDE DD, DEMANDE D WHERE T.NoTypeDechet = DD.NoTypeDechet AND DD.NoDemande = D.NoDemande AND EXTRACT(year from DateEnlevement)= ? AND EXTRACT(month FROM DateEnlevement) = ? GROUP BY NomTypeDechet; 
 ```
+(Exemple avec ?, ? valant 2018, 10)
 ##### Afficher les employés ayant réalisé moins de n tournées. Triez le résultat sur le nombre de tournées. (Params : n)
 ```
 select noemploye, count(*) as tournee from tournee GROUP BY noemploye HAVING count(*) < ? ORDER BY count(*);
 ```
+(Exemple avec ? valant 5)
 ##### Affichez les informations de l’entreprise qui a réalisé plus de demandes que l’entreprise Formalys (ou une autre entreprise dont vous fournissez le nom).  (Params : nom)
 ```
 SELECT e.raisonsociale, count(*) as total FROM demande d INNER JOIN entreprise e ON d.siret = e.siret  GROUP BY e.raisonsociale HAVING count(*) > (SELECT count(*) FROM demande d INNER JOIN entreprise e ON d.siret = e.siret where e.raisonsociale = 'Formalys');
