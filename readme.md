@@ -87,7 +87,7 @@ SELECT entreprise.RaisonSociale, tournee.NoTournee, detaildemande.QuantiteEnleve
 ```
 ##### Afficher la quantité totale récupérée par type de déchet pour un mois/année donné. (Params : année, mois)
 ```
-SELECT T.NomTypeDechet, COUNT(*) FROM TYPEDECHET T, DETAILDEMANDE DD, DEMANDE D WHERE T.NoTypeDechet = DD.NoTypeDechet AND DD.NoDemande = D.NoDemande AND EXTRACT(year from DateEnlevement)= 2018 AND EXTRACT(month FROM DateEnlevement) = 10 GROUP BY NomTypeDechet; 
+SELECT T.NomTypeDechet, COUNT(*) FROM TYPEDECHET T, DETAILDEMANDE DD, DEMANDE D WHERE T.NoTypeDechet = DD.NoTypeDechet AND DD.NoDemande = D.NoDemande AND EXTRACT(year from DateEnlevement)= ? AND EXTRACT(month FROM DateEnlevement) = ? GROUP BY NomTypeDechet; 
 ```
 ##### Afficher les employés ayant réalisé moins de n tournées. Triez le résultat sur le nombre de tournées. (Params : n)
 ```
